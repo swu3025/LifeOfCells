@@ -64,6 +64,18 @@ public class CellMoveToggleChild extends CellMoveToggle{
     }
 
     /**
+     * Creates a deep copy of the calling  object
+     *
+     * @return a deep copy of the calling  object
+     */
+    public Cell newCellCopy(){
+        CellMoveToggleChild copyOfCell = new CellMoveToggleChild(
+                this.currRow,this.currCol,this.mass);
+        copyOfCell.toggled = this.toggled;
+        return copyOfCell;
+    }
+
+    /**
      * method checks whether the cell should initiate apoptosis
      * given certain conditions provided.
      *
@@ -77,4 +89,5 @@ public class CellMoveToggleChild extends CellMoveToggle{
                 (numAlive < CHECKAPOPTOSIS_CONDITION);
 
     }
+
 }
