@@ -6,8 +6,8 @@
  * Sources used: None
  *
  * the purpose of this file is to create a program that provides information
- * when the cell is stationary. It also has functions that provide
- * information on its string representation and apoptosis
+ * when the cell is stationary. It also has multiple functions that relate
+ * to the cell and it functionality.
  */
 
 import java.util.List;
@@ -15,8 +15,9 @@ import java.util.List;
 /**
  * The purpose of this class is be able to store/initialize information
  * about the cell that is stationary, such as the current row, column,
- * and mass while also having methods that provide the string representation
- * and check the apoptosis of the cell.
+ * and mass while also being able to provide information on its string
+ * representation and apoptosis and is also able to make a deep copy of
+ * the calling object
  */
 public class CellStationary extends Cell {
 
@@ -71,5 +72,14 @@ public class CellStationary extends Cell {
         less than or equal to 7 and bigger than or equal to 3 */
         return neighbors.size() <= CHECKAPOPTOSIS_CONDITION_1 &&
                 neighbors.size() >= CHECKAPOPTOSIS_CONDITON_2;
+    }
+
+    /**
+     * Creates a deep copy of the calling CellStationary object
+     *
+     * @return a deep copy of the calling CellStationary object
+     */
+    public Cell newCellCopy(){
+        return new CellStationary(this.currRow,this.currCol,this.mass);
     }
 }
