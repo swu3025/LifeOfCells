@@ -5,17 +5,17 @@
  *
  * Sources used: None
  *
- *  * the purpose of this file is to create a program that provides information
- *  * when the cell moves diagonally. It also has functions that provide
- *  * information on its string representation and apoptosis
+ * the purpose of this file is to create a program that provides information
+ * when the cell moves diagonally. It also has multiple functions that relate
+ * to the cell and it functionality.
  */
 
 import java.util.List;
 
 /**
- * The purpose of this class is to instantiate and store information of a cell
- * that is moving diagonally while also containing methods that get the string
- * representation and check the apoptosis of the cell
+ * The purpose of this class is to instantiate and store information
+ * of a cell that is moving diagonally while also containing methods
+ * that relate to the cell's functionality.
  */
 public class CellMoveDiagonal extends CellMoveUp{
 
@@ -28,6 +28,8 @@ public class CellMoveDiagonal extends CellMoveUp{
 
     // condition for the checkApoptosis method
     private static final int CHECKAPOPTOSIS_CONDITION = 3;
+
+    private static final int MULTIPLE_OF_FOUR = 4;
 
     //true if the cell is oriented to the right, false otherwise
     public boolean orientedRight;
@@ -89,5 +91,42 @@ public class CellMoveDiagonal extends CellMoveUp{
         /* checks whether the amount of neighbors of the cell is greater
         than 3 */
         return neighbors.size() > CHECKAPOPTOSIS_CONDITION;
+    }
+
+    /**
+     * The method creates a deep copy of the calling CellMoveDiagonal object.
+     *
+     * @return A Cell that contains the deep copy of the calling object.
+     */
+    public Cell newCellCopy(){
+        CellMoveDiagonal copyOfCell = new CellMoveDiagonal(
+                this.currRow,this.currCol,this.mass);
+        copyOfCell.diagonalMoves = this.diagonalMoves;
+        copyOfCell.orientedRight = this.orientedRight;
+        return copyOfCell;
+    }
+
+    /**
+     * The method retrieves the intended position of the cells that are
+     * capable of moving, their on its orientation.
+     *
+     * @return an array containing the row and column of the
+     * intended position.
+     */
+    public int[] getMove(){
+
+        this.diagonalMoves++;
+
+        //check if the cell's orientation is right
+        if(orientedRight){
+            //switch the orientation if diagonal moves is a multiple of 4
+            if(this.diagonalMoves % MULTIPLE_OF_FOUR == 0){
+                this.orientedRight = false;
+            }
+            return new int[]{this.currRow-1,this.currCol+1};
+        }
+        else{
+            return new int[]{this.currRow-1,this.currCol-1};
+        }
     }
 }
