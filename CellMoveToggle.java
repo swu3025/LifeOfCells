@@ -6,8 +6,8 @@
  * Sources used: None
  *
  * the purpose of this file is to create a program that provides information
- * when the cell's moves are either toggled or not. It also has functions
- * that provide information on its string representation and apoptosis
+ * when the cell's moves are either toggled or not. It also has multiple
+ * functions that relate to the cell and it functionality.
  */
 
 import java.util.List;
@@ -15,12 +15,12 @@ import java.util.List;
 /**
  * The purpose of this class is to instantiate and store the information
  * of a cell whose moves are either toggled or not while also creating methods
- * that get the string representation and check the apoptosis of the cell
+ * that relate to the cell's functionality.
  */
 public class CellMoveToggle extends CellMoveUp{
 
-    /* variable to store the string representation of the cell whose moves are
-    toggled and untoggled*/
+    /* variable to store the string representation of the cell
+    whose moves are toggled and untoggled*/
     private static final String
             CELLMOVETOGGLE_STRING_REPRESENTATION_TOGGLED = "T";
     private static final String
@@ -88,5 +88,38 @@ public class CellMoveToggle extends CellMoveUp{
         or greater than 5 */
         return neighbors.size() < CHECKAPOPTOSIS_CONDITION_1 ||
                 neighbors.size() > CHECKAPOPTOSIS_CONDITION_2;
+    }
+
+    /**
+     * Creates a deep copy of the calling CellMoveToggle object
+     *
+     * @return a deep copy of the calling CellMoveToggle object
+     */
+    public Cell newCellCopy(){
+        CellMoveToggle copyOfCell = new CellMoveToggle(
+                this.currRow,this.currCol,this.mass);
+        copyOfCell.toggled = this.toggled;
+        return copyOfCell;
+    }
+
+    /**
+     * The method retrieves the intended position of the cells that
+     * are capable of moving, based on whether the cells are toggled
+     * or not.
+     *
+     * @return an array containing the row and column of the
+     * intended position.
+     */
+    public int[] getMove(){
+        //flip the boolean value of toggled
+        this.toggled = !this.toggled;
+
+        //if toggled is true
+        if(!this.toggled){
+            return new int[]{this.currRow-1,this.currCol};
+        }
+        else{
+            return new int[]{this.currRow,this.currCol};
+        }
     }
 }
